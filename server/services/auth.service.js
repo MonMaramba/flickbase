@@ -17,7 +17,12 @@ const createUser = async (email, password) => {
     throw error;
   }
 };
+const genAuthToken = async (user) => {
+  const token = user.generateAuthToken();
+  return token;
+};
 
 module.exports = {
   createUser,
+  genAuthToken,
 };
