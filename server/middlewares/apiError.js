@@ -18,4 +18,19 @@ const handleError = (err, res) => {
   });
 };
 
-module.exports = { ApiError, handleError };
+// creates unforseen errors outside what we coded for (i.e. monggose errors)
+const convertToApiError = (err, req, res, next) => {
+  let error = err;
+
+  if (!(error instanceof ApiError)) {
+    const statusCode =
+      error.statusCode || error instanceof mongoose.Error
+        ? httpStatus.BAD_REQUEST
+        : httpStatus.INTERNAL_SERVER_ERROR;
+    const message = error.message || httpStatus(statusCode);
+    error = new ApiError(statusCode, message);
+  }
+  next(error);
+};
+
+module.exports = { ApiError, handleError, convertToApiError };
