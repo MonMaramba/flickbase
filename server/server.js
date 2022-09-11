@@ -10,6 +10,9 @@ const mongoSanitize = require('express-mongo-sanitize');
 
 const routes = require('./routes');
 
+const passport = require('passport');
+const { jwtStrategy } = require('./middlewares/passport');
+
 const {
   ApiError,
   handleError,
@@ -25,6 +28,10 @@ app.use(bodyParser.json());
 // SANITIZE
 app.use(xss());
 app.use(mongoSanitize());
+
+// PASSPORT
+app.use(passport.initialize());
+passport.use('jwt', jwtStrategy);
 
 // routes
 app.use('/api', routes);
