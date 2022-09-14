@@ -1,7 +1,8 @@
 const { ApiError } = require('../middlewares/apiError');
 const httpStatus = require('http-status');
 
-const { userService } = require('../services');
+const { userService, authService } = require('../services');
+const { User } = require('../models/user');
 
 const userController = {
   async profile(req, res, next) {
@@ -20,6 +21,21 @@ const userController = {
     try {
       const user = await userService.updateUserProfile(req);
       res.json(res.locals.permission.filter(user._doc));
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  async updateUserEmail(req, res, next) {
+    try {
+      const user = await userService.updateUserEmail(req);
+      const token = await authService.genAuthToken(user);
+
+      console.log('send email');
+
+      res
+        .cookie('x-access-token', token)
+        .send({ user: res.locals.permission.filter(user._doc) });
     } catch (error) {
       next(error);
     }
