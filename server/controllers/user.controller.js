@@ -1,7 +1,7 @@
 const { ApiError } = require('../middlewares/apiError');
 const httpStatus = require('http-status');
 
-const { userService, authService } = require('../services');
+const { userService, authService, emailService } = require('../services');
 const { User } = require('../models/user');
 
 const userController = {
@@ -31,7 +31,8 @@ const userController = {
       const user = await userService.updateUserEmail(req);
       const token = await authService.genAuthToken(user);
 
-      console.log('send email');
+      // send verification email
+      await emailService.registerEmail(user.email, user);
 
       res
         .cookie('x-access-token', token)
