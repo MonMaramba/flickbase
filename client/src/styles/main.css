@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Roboto:wght@300;400;700&display=swap');
+
 
 body {
     font-family: 'Roboto', sans-serif;
@@ -40,7 +40,7 @@ nav .nav-link {
 }
 
 .fredoka_ff {
-  font-family: 'Fredoka One', !important;
+  font-family: 'Fredoka One';
 }
 
 .not_verified {
