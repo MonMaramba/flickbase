@@ -6,7 +6,7 @@ const Header = () => {
     <nav className='navbar fixed-top'>
       <Link
         to='/'
-        classname='navbar-brand d-flex align-items-center fredoka_ff'
+        className='navbar-brand d-flex align-items-center fredoka_ff'
         style={{ fontFamily: 'Fredoka One' }}
       >
         Flickbase

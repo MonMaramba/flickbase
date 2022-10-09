@@ -8,7 +8,6 @@ import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import ListItemButton from '@mui/material/ListItemButton';
 
 import DehazeIcon from '@mui/icons-material/Dehaze';
 import EmailIcon from '@mui/icons-material/Email';
@@ -31,7 +30,7 @@ const SideDrawer = () => {
         <Box sx={{ width: 200 }}>
           <List>
             <ListItem
-              ListItemButton
+              button
               component={RouterLink}
               to='/'
               onClick={() => setDrawerState(false)}
@@ -42,7 +41,7 @@ const SideDrawer = () => {
               <ListItemText primary='Home' />
             </ListItem>
             <ListItem
-              ListItemButton
+              button
               component={RouterLink}
               to='/contact'
               onClick={() => setDrawerState(false)}
@@ -54,7 +53,7 @@ const SideDrawer = () => {
             </ListItem>
 
             <ListItem
-              ListItemButton
+              button
               component={RouterLink}
               to='/auth'
               onClick={() => setDrawerState(false)}
@@ -66,7 +65,7 @@ const SideDrawer = () => {
             </ListItem>
 
             <ListItem
-              ListItemButton
+              button
               component={RouterLink}
               to='/'
               onClick={() => {
@@ -82,7 +81,7 @@ const SideDrawer = () => {
             <>
               <Divider>
                 <ListItem
-                  ListItemButton
+                  button
                   component={RouterLink}
                   to='/dashboard'
                   onClick={() => setDrawerState(false)}
