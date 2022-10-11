@@ -9,12 +9,21 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
+import { registerUser } from '../../store/actions/users';
+
 const Auth = () => {
   // component
   const [register, setRegister] = useState(false);
 
+  // redux
+  const users = useSelector((state) => state.users);
+  const dispatch = useDispatch();
+
   const formik = useFormik({
-    initialValues: { email: '', password: '' },
+    initialValues: {
+      email: 'acidgreensolutions@gmail.com',
+      password: 'password123',
+    },
     validationSchema: Yup.object({
       email: Yup.string()
         .required('Sorry the email is required')
@@ -28,13 +37,13 @@ const Auth = () => {
 
   const handleSubmit = (values) => {
     if (register) {
-      console.log(values, 'register');
+      dispatch(registerUser(values));
     } else {
       console.log(values, 'sign in');
     }
   };
   return (
-    <div>
+    <div className='auth_container'>
       <h1>Authenticate</h1>
       <Box
         sx={{ '& .MuiTextField-root': { width: '100%', marginTop: '20px' } }}
