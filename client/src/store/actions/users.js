@@ -9,7 +9,8 @@ export const registerUser = createAsyncThunk(
         email: email,
         password: password,
       });
-      console.log(request.data);
+
+      return { data: request.data.user, auth: true };
     } catch (error) {
       throw error;
     }
