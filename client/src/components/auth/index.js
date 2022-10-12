@@ -9,7 +9,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
-import { registerUser } from '../../store/actions/users';
+import { registerUser, signInUser } from '../../store/actions/users';
 
 const Auth = () => {
   // component
@@ -39,7 +39,7 @@ const Auth = () => {
     if (register) {
       dispatch(registerUser(values));
     } else {
-      console.log(values, 'sign in');
+      dispatch(signInUser(values));
     }
   };
   return (

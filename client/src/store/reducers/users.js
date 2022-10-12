@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { registerUser } from '../actions/users';
+import { registerUser, signInUser } from '../actions/users';
 
 let DEFAULT_USER_STATE = {
   loading: false,
@@ -31,6 +31,18 @@ export const usersSlice = createSlice({
         state.auth = action.payload.auth;
       })
       .addCase(registerUser.rejected, (state) => {
+        state.loading = false;
+      })
+      // SIGNIN
+      .addCase(signInUser.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(signInUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.data = action.payload.data;
+        state.auth = action.payload.auth;
+      })
+      .addCase(signInUser.rejected, (state) => {
         state.loading = false;
       });
   },

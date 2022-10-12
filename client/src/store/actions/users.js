@@ -16,3 +16,18 @@ export const registerUser = createAsyncThunk(
     }
   }
 );
+
+export const signInUser = createAsyncThunk(
+  'users/singInUser',
+  async ({ email, password }, { dispatch }) => {
+    try {
+      const request = await axios.post(`/api/auth/signin`, {
+        email: email,
+        password: password,
+      });
+      return { data: request.data.user, auth: true };
+    } catch (error) {
+      throw error;
+    }
+  }
+);
