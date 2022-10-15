@@ -2,6 +2,11 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 import { errorGlobal, successGlobal } from '../reducers/notifications';
+import {
+  getTokenCookie,
+  removeTokenCookie,
+  getAuthHeader,
+} from '../../utils/tools';
 
 export const registerUser = createAsyncThunk(
   'users/registerUser',
@@ -37,3 +42,12 @@ export const signInUser = createAsyncThunk(
     }
   }
 );
+
+export const isAuth = createAsyncThunk('users/isAuth', async () => {
+  try {
+    const request = await axios.get('/api/auth/isauth', getAuthHeader());
+    return { data: request.data, auth: true };
+  } catch (error) {
+    return { data: {}, auth: false };
+  }
+});
