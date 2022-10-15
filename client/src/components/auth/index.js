@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { errorHelper, Loader } from '../../utils/tools';
+import { errorHelper, Loader, showToast } from '../../utils/tools';
 
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -14,9 +15,11 @@ import { registerUser, signInUser } from '../../store/actions/users';
 const Auth = () => {
   // component
   const [register, setRegister] = useState(false);
+  let navigate = useNavigate();
 
   // redux
   const users = useSelector((state) => state.users);
+  const notifications = useSelector((state) => state.notifications);
   const dispatch = useDispatch();
 
   const formik = useFormik({
@@ -42,6 +45,14 @@ const Auth = () => {
       dispatch(signInUser(values));
     }
   };
+
+  useEffect(() => {
+    if (notifications && notifications.global.success) {
+      // redirect
+      navigate('/dashboard');
+    }
+  }, [notifications]);
+
   return (
     <div className='auth_container'>
       <h1>Authenticate</h1>
