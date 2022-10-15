@@ -51,3 +51,7 @@ export const isAuth = createAsyncThunk('users/isAuth', async () => {
     return { data: {}, auth: false };
   }
 });
+
+export const signOut = createAsyncThunk('users/signOut', async () => {
+  removeTokenCookie();
+});

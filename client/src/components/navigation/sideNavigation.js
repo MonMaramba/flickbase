@@ -15,7 +15,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 
-const SideDrawer = () => {
+const SideDrawer = ({ users, signOutUser }) => {
   const [drawerState, setDrawerState] = useState(false);
 
   return (
@@ -52,45 +52,50 @@ const SideDrawer = () => {
               <ListItemText primary='Contact' />
             </ListItem>
 
-            <ListItem
-              button
-              component={RouterLink}
-              to='/auth'
-              onClick={() => setDrawerState(false)}
-            >
-              <ListItemIcon>
-                <VpnKeyIcon />
-              </ListItemIcon>
-              <ListItemText primary='Sign in' />
-            </ListItem>
+            {!users.auth ? (
+              <ListItem
+                button
+                component={RouterLink}
+                to='/auth'
+                onClick={() => setDrawerState(false)}
+              >
+                <ListItemIcon>
+                  <VpnKeyIcon />
+                </ListItemIcon>
+                <ListItemText primary='Sign in' />
+              </ListItem>
+            ) : (
+              <ListItem
+                button
+                component={RouterLink}
+                to='/'
+                onClick={() => {
+                  signOutUser();
+                  setDrawerState(false);
+                }}
+              >
+                <ListItemIcon>
+                  <VpnKeyIcon />
+                </ListItemIcon>
+                <ListItemText primary='Sign Out' />
+              </ListItem>
+            )}
 
-            <ListItem
-              button
-              component={RouterLink}
-              to='/'
-              onClick={() => {
-                alert('sign out');
-                setDrawerState(false);
-              }}
-            >
-              <ListItemIcon>
-                <VpnKeyIcon />
-              </ListItemIcon>
-              <ListItemText primary='Sign Out' />
-            </ListItem>
             <>
               <Divider>
-                <ListItem
-                  button
-                  component={RouterLink}
-                  to='/dashboard'
-                  onClick={() => setDrawerState(false)}
-                >
-                  <ListItemIcon>
-                    <DashboardIcon />
-                  </ListItemIcon>
-                  <ListItemText primary='Dashboard' />
-                </ListItem>
+                {users.auth ? (
+                  <ListItem
+                    button
+                    component={RouterLink}
+                    to='/dashboard'
+                    onClick={() => setDrawerState(false)}
+                  >
+                    <ListItemIcon>
+                      <DashboardIcon />
+                    </ListItemIcon>
+                    <ListItemText primary='Dashboard' />
+                  </ListItem>
+                ) : null}
               </Divider>
             </>
           </List>
