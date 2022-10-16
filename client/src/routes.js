@@ -9,6 +9,7 @@ import Header from './components/navigation/header';
 import Home from './components/home';
 import Auth from './components/auth';
 import Dashboard from './components/dashboard';
+import AuthGuard from './hoc/authGuard';
 
 const Router = () => {
   const [loading, setLoading] = useState(true);
@@ -35,7 +36,14 @@ const Router = () => {
             <Routes>
               <Route path='/auth' element={<Auth />} />
               <Route path='/' element={<Home />} />
-              <Route path='/dashboard' element={<Dashboard />} />
+              <Route
+                path='/dashboard'
+                element={
+                  <AuthGuard>
+                    <Dashboard />
+                  </AuthGuard>
+                }
+              />
             </Routes>
           </MainLayout>
         </>
