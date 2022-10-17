@@ -4,10 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { isAuth } from './store/actions/users';
 import { Loader } from './utils/tools';
 
+// PUBLIC ROUTES
 import MainLayout from './hoc/mainLayout';
 import Header from './components/navigation/header';
 import Home from './components/home';
 import Auth from './components/auth';
+
+// ADMIN ROUTES
+import DashboardMain from './components/dashboard/mainDashboard';
 import Dashboard from './components/dashboard';
 import AuthGuard from './hoc/authGuard';
 import AdminArticles from './components/dashboard/articles';
@@ -39,11 +43,13 @@ const Router = () => {
               <Route
                 path='/dashboard'
                 element={
+                  // PROTECTION FOR ADMIN
                   <AuthGuard>
                     <Dashboard />
                   </AuthGuard>
                 }
               >
+                <Route index element={<DashboardMain />} />
                 <Route path='profile' element={<AdminProfile />} />
                 <Route path='articles' element={<AdminArticles />} />
               </Route>

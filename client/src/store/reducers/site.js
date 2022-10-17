@@ -1,4 +1,3 @@
-import { create } from '@mui/material/styles/createTransitions';
 import { createSlice } from '@reduxjs/toolkit';
 
 export const siteSlice = createSlice({
@@ -6,7 +5,12 @@ export const siteSlice = createSlice({
   initialState: {
     layout: '',
   },
-  reducers: {},
+  reducers: {
+    setLayout: (state, action) => {
+      state.layout = action.payload;
+    },
+  },
 });
 
+export const { setLayout } = siteSlice.actions;
 export default siteSlice.reducer;

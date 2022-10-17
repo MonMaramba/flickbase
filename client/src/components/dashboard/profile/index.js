@@ -1,5 +1,12 @@
+import { AdminTitle } from '../../../utils/tools';
+
 const AdminProfile = () => {
-  return <>ADMIN PROFILES</>;
+  return (
+    <>
+      <AdminTitle title='Profile' />
+      ADMIN PROFILES
+    </>
+  );
 };
 
 export default AdminProfile;
