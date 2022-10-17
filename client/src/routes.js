@@ -16,6 +16,7 @@ import Dashboard from './components/dashboard';
 import AuthGuard from './hoc/authGuard';
 import AdminArticles from './components/dashboard/articles';
 import AdminProfile from './components/dashboard/profile';
+import AddArticle from './components/dashboard/articles/edit_add/add';
 
 const Router = () => {
   const [loading, setLoading] = useState(true);
@@ -52,6 +53,7 @@ const Router = () => {
                 <Route index element={<DashboardMain />} />
                 <Route path='profile' element={<AdminProfile />} />
                 <Route path='articles' element={<AdminArticles />} />
+                <Route path='articles/add' element={<AddArticle />} />
               </Route>
               <Route path='/auth' element={<Auth />} />
               <Route path='/' element={<Home />} />
