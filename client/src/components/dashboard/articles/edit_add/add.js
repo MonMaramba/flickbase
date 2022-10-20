@@ -4,13 +4,14 @@ import { useFormik, FieldArray, FormikProvider } from 'formik';
 import { useNavigate } from 'react-router-dom';
 
 // components
-import { AdminTitle } from '../../../../utils/tools';
+import { AdminTitle, Loader } from '../../../../utils/tools';
 import { errorHelper, loader } from '../../../../utils/tools';
 import { validation, formValues } from './validationSchema';
 import WYSIWYG from '../../../../utils/forms/wysiwyg';
 
 // redux
 import { useDispatch, useSelector } from 'react-redux';
+import { addArticle } from '../../../../store/actions/articles';
 
 // MUI
 import TextField from '@mui/material/TextField';
@@ -36,13 +37,18 @@ const AddArticle = () => {
   const dispatch = useDispatch();
 
   const actorsValue = useRef('');
+  const navigate = useNavigate();
 
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: formValues,
     validationSchema: validation,
     onSubmit: (values) => {
-      console.log(values);
+      dispatch(addArticle(values))
+        .unwrap()
+        .then(() => {
+          navigate('/dashboard/articles');
+        });
     },
   });
 
@@ -187,9 +193,13 @@ const AddArticle = () => {
 
         <Divider className='mt-3 mb-3' />
 
-        <Button variant='contained' color='primary' type='submit'>
-          ADD ARTICLE
-        </Button>
+        {articles.loading ? (
+          <Loader />
+        ) : (
+          <Button variant='contained' color='primary' type='submit'>
+            ADD ARTICLE
+          </Button>
+        )}
       </form>
     </>
   );
