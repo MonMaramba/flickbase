@@ -24,12 +24,19 @@ const WYSIWYG = (props) => {
     props.setEditorState(HTMLData);
   };
 
+  const checkError = () => {
+    if (props.onError || (props.onError && props.editorBlur)) {
+      return true;
+    }
+    return false;
+  };
+
   return (
     <div>
       <Editor
         editorState={editorData.editorState}
         onEditorStateChange={onEditorStateChange}
-        wrapperClassName={`demo-wrapper`}
+        wrapperClassName={`demo-wrapper ${checkError() ? 'error' : ''}`}
         editorClassName='demo-editor'
         onBlur={props.setEditorBlur}
       />
