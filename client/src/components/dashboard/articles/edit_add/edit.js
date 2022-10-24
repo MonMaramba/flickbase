@@ -11,7 +11,10 @@ import WYSIWYG from '../../../../utils/forms/wysiwyg';
 
 // redux
 import { useDispatch, useSelector } from 'react-redux';
-import { getAdminArticle } from '../../../../store/actions/articles';
+import {
+  getAdminArticle,
+  updateArticle,
+} from '../../../../store/actions/articles';
 
 // MUI
 import TextField from '@mui/material/TextField';
@@ -31,6 +34,8 @@ import { visuallyHidden } from '@mui/utils';
 
 const EditArticle = () => {
   const [loading, setLoading] = useState(true);
+  const [formData, setFormData] = useState(formValues);
+  const [editorContent, setEditorContent] = useState(null);
   const [editorBlur, setEditorBlur] = useState(false);
 
   //redux
@@ -42,14 +47,10 @@ const EditArticle = () => {
 
   const formik = useFormik({
     enableReinitialize: true,
-    initialValues: formValues,
+    initialValues: formData,
     validationSchema: validation,
     onSubmit: (values) => {
-      //   dispatch(addArticle(values))
-      //     .unwrap()
-      //     .then(() => {
-      //       navigate('/dashboard/articles');
-      //     });
+      dispatch(updateArticle({ values, articleId }));
     },
   });
 
@@ -68,9 +69,10 @@ const EditArticle = () => {
       .unwrap()
       .then((response) => {
         setLoading(false);
-        console.log(response);
+        setFormData(response);
+        setEditorContent(response.content);
       });
-  }, []);
+  }, [articleId]);
 
   // edit
 
@@ -99,6 +101,7 @@ const EditArticle = () => {
               setEditorBlur={(blur) => handleEditorBlur(blur)}
               onError={formik.errors.content}
               editorBlur={editorBlur}
+              editorContent={editorContent}
             />
             {formik.errors.content || (formik.errors.content && editorBlur) ? (
               <FormHelperText error={true}>
