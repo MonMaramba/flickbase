@@ -23,6 +23,7 @@ export const articlesSlice = createSlice({
       .addCase(addArticle.rejected, (state) => {
         state.loading = false;
       })
+      // GET PAGINATE ARTILCLES
       .addCase(getPaginateArticles.pending, (state) => {
         state.loading = true;
       })
@@ -34,7 +35,6 @@ export const articlesSlice = createSlice({
         state.loading = false;
       });
   },
-  // GET PAGINATE ARTILCELS
 });
 
 export default articlesSlice.reducer;

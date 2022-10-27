@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-
 import { AdminTitle } from '../../../utils/tools';
+import PaginateComponent from './paginate';
+
+import { useDispatch, useSelector } from 'react-redux';
 import { getPaginateArticles } from '../../../store/actions/articles';
 
 import {
@@ -14,7 +15,6 @@ import {
   FormControl,
 } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import { Link } from 'react-router-dom';
 
 const AdminArticles = () => {
   const articles = useSelector((state) => state.articles);
@@ -32,7 +32,7 @@ const AdminArticles = () => {
         <ButtonToolbar className='mb-3'>
           <ButtonGroup className='me-2'>
             <LinkContainer to='/dashboard/articles/add'>
-              <Button variant='secondary'>Add Articles</Button>
+              <Button variant='secondary'>Add articles</Button>
             </LinkContainer>
           </ButtonGroup>
           <form>
@@ -43,7 +43,9 @@ const AdminArticles = () => {
           </form>
         </ButtonToolbar>
 
-        <>Pagination</>
+        <>
+          <PaginateComponent articles={articles.adminArticles} />
+        </>
       </div>
     </>
   );
