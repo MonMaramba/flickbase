@@ -3,7 +3,12 @@ import Moment from 'react-moment';
 
 import { Loader } from '../../../utils/tools';
 
-const PaginateComponent = ({ articles }) => {
+const PaginateComponent = ({
+  articles,
+  goToPrevPage,
+  goToNextPage,
+  goToEdit,
+}) => {
   return (
     <>
       {articles && articles.docs ? (
@@ -32,7 +37,7 @@ const PaginateComponent = ({ articles }) => {
                   </td>
                   <td
                     className='action_btn edit_btn'
-                    onClick={() => alert('Go to Edit')}
+                    onClick={() => goToEdit(item._id)}
                   >
                     Edit
                   </td>
@@ -49,18 +54,30 @@ const PaginateComponent = ({ articles }) => {
           <Pagination>
             {articles.hasPrevPage ? (
               <>
-                <Pagination.Prev />
-                <Pagination.Item>{articles.prevPage}</Pagination.Item>
+                <Pagination.Prev
+                  onClick={() => goToPrevPage(articles.prevPage)}
+                />
+                <Pagination.Item
+                  onClick={() => goToPrevPage(articles.prevPage)}
+                >
+                  {articles.prevPage}
+                </Pagination.Item>
               </>
             ) : null}
             <Pagination.Item active>{articles.page}</Pagination.Item>
+            {articles.hasNextPage ? (
+              <>
+                <Pagination.Item
+                  onClick={() => goToNextPage(articles.nextPage)}
+                >
+                  {articles.nextPage}
+                </Pagination.Item>
+                <Pagination.Next
+                  onClick={() => goToNextPage(articles.nextPage)}
+                />
+              </>
+            ) : null}
           </Pagination>
-          {articles.hasNextPage ? (
-            <>
-              <Pagination.Item>{articles.nextPage}</Pagination.Item>
-              <Pagination.Next />
-            </>
-          ) : null}
         </>
       ) : (
         <Loader />

@@ -21,9 +21,22 @@ const AdminArticles = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  /// PAGINATION COMMANDS
+  const goToPrevPage = (page) => {
+    dispatch(getPaginateArticles({ page }));
+  };
+
+  const goToNextPage = (page) => {
+    dispatch(getPaginateArticles({ page }));
+  };
+
   useEffect(() => {
     dispatch(getPaginateArticles({}));
   }, []);
+
+  const goToEdit = (id) => {
+    navigate(`/dashboard/articles/edit/${id}`);
+  };
 
   return (
     <>
@@ -44,7 +57,14 @@ const AdminArticles = () => {
         </ButtonToolbar>
 
         <>
-          <PaginateComponent articles={articles.adminArticles} />
+          <PaginateComponent
+            articles={articles.adminArticles}
+            goToPrevPage={(page) => goToPrevPage(page)}
+            goToNextPage={(page) => {
+              goToNextPage(page);
+            }}
+            goToEdit={(id) => goToEdit(id)}
+          />
         </>
       </div>
     </>
