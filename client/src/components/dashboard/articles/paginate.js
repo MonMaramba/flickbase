@@ -8,6 +8,7 @@ const PaginateComponent = ({
   goToPrevPage,
   goToNextPage,
   goToEdit,
+  handleStatusChange,
 }) => {
   return (
     <>
@@ -43,7 +44,7 @@ const PaginateComponent = ({
                   </td>
                   <td
                     className='action_btn status_btn'
-                    onClick={() => alert('Change status')}
+                    onClick={() => handleStatusChange(item.status, item._id)}
                   >
                     {item.status}
                   </td>
