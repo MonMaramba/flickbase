@@ -41,9 +41,10 @@ const AdminArticles = () => {
     navigate(`/dashboard/articles/edit/${id}`);
   };
 
-  const handleStatusChange = (status, _id) => {
+  const handleStatusChange = (status, _id, page) => {
     let newStatus = status === 'draft' ? 'public' : 'draft';
     dispatch(changeStatusArticle({ newStatus, _id }));
+    // dispatch(getPaginateArticles({ page })); option
   };
 
   return (

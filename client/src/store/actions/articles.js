@@ -88,8 +88,9 @@ export const changeStatusArticle = createAsyncThunk(
         getAuthHeader()
       );
       let article = request.data;
+      console.log(article);
       // previous state
-      let state = getState().articles.getAdminArticle.docs;
+      let state = getState().articles.adminArticles.docs;
       // find the position
       let position = state.findIndex((article) => article._id === _id);
 
