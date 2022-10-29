@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   getPaginateArticles,
   changeStatusArticle,
+  removeArticle,
 } from '../../../store/actions/articles';
 
 import {
@@ -23,6 +24,16 @@ const AdminArticles = () => {
   const articles = useSelector((state) => state.articles);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  // MODAL
+  const [removeAlert, setRemoveAlert] = useState(false);
+  const [toRemove, setToRemove] = useState(null);
+
+  const handleClose = () => setRemoveAlert(false);
+  const handleShow = (id = null) => {
+    setToRemove(id);
+    setRemoveAlert(true);
+  };
 
   /// PAGINATION COMMANDS
   const goToPrevPage = (page) => {
@@ -45,6 +56,15 @@ const AdminArticles = () => {
     let newStatus = status === 'draft' ? 'public' : 'draft';
     dispatch(changeStatusArticle({ newStatus, _id }));
     // dispatch(getPaginateArticles({ page })); option
+  };
+
+  const handleDelete = () => {
+    dispatch(removeArticle(toRemove))
+      .unwrap()
+      .finally(() => {
+        setRemoveAlert(false);
+        setToRemove(null);
+      });
   };
 
   return (
@@ -74,8 +94,23 @@ const AdminArticles = () => {
             }}
             goToEdit={(id) => goToEdit(id)}
             handleStatusChange={(status, id) => handleStatusChange(status, id)}
+            handleShow={(id) => handleShow(id)}
           />
         </>
+        <Modal show={removeAlert} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Are you sure?</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>There is no going back</Modal.Body>
+          <Modal.Footer>
+            <Button variant='secondary' onClick={handleClose}>
+              Oops, close this
+            </Button>
+            <Button variant='danger' onClick={() => handleDelete()}>
+              Delete
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     </>
   );

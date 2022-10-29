@@ -88,7 +88,7 @@ export const changeStatusArticle = createAsyncThunk(
         getAuthHeader()
       );
       let article = request.data;
-      console.log(article);
+
       // previous state
       let state = getState().articles.adminArticles.docs;
       // find the position
@@ -99,6 +99,23 @@ export const changeStatusArticle = createAsyncThunk(
       newState[position] = article;
       dispatch(successGlobal('Status changed!'));
       return newState;
+    } catch (error) {
+      dispatch(errorGlobal(error.response.data.message));
+      throw error;
+    }
+  }
+);
+
+export const removeArticle = createAsyncThunk(
+  'articles/removeArticle',
+  async (_id, { dispatch, getState }) => {
+    try {
+      await axios.delete(`/api/articles/article/${_id}`, getAuthHeader());
+      dispatch(successGlobal('Article removed'));
+
+      let page = getState().articles.adminArticles.page;
+      dispatch(getPaginateArticles({ page }));
+      return true;
     } catch (error) {
       dispatch(errorGlobal(error.response.data.message));
       throw error;
