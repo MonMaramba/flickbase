@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Modal } from 'react-bootstrap';
-import EmailStepper from './stepper/stepper';
+import EmailStepper from './stepper/email';
 
 import { Grid } from '@mui/material';
 import { TextField } from '@mui/material';

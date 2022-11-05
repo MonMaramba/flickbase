@@ -77,3 +77,27 @@ export const updateUserProfile = createAsyncThunk(
     }
   }
 );
+
+export const changeEmail = createAsyncThunk(
+  'users/changeEmail',
+  async (data, { dispatch }) => {
+    try {
+      const request = await axios.patch(
+        `/api/users/email`,
+        {
+          email: data.email,
+          newemail: data.newemail,
+        },
+        getAuthHeader()
+      );
+      dispatch(successGlobal('Email update...  yay!'));
+      return {
+        email: request.data.user.email,
+        verified: false,
+      };
+    } catch (error) {
+      dispatch(errorGlobal(error.response.data.message));
+      throw error;
+    }
+  }
+);
