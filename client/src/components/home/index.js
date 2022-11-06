@@ -7,6 +7,7 @@ import { Grid, Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { homeLoadMore } from '../../store/actions/articles';
+import ArticleCard from '../../utils/articleCard';
 
 const Home = () => {
   const articles = useSelector((state) => state.articles);
@@ -16,7 +17,7 @@ const Home = () => {
     if (articles.articles.length <= 0) {
       dispatch(homeLoadMore(articles.homeSort));
     }
-  }, [dispatch]);
+  }, [dispatch, articles.articles.length, articles.homeSort]);
 
   const getNextArticles = () => {
     let skip = articles.homeSort.skip + articles.homeSort.limit;
@@ -29,7 +30,7 @@ const Home = () => {
         {articles && articles.articles
           ? articles.articles.map((item) => (
               <Grid key={item._id} item xs={12} sm={6} lg={3}>
-                {item.title}
+                <ArticleCard article={item} />
               </Grid>
             ))
           : null}
