@@ -1,8 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-
 import { errorGlobal, successGlobal } from '../reducers/notifications';
 import { getAuthHeader } from '../../utils/tools';
+import axios from 'axios';
 
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
@@ -15,7 +14,7 @@ export const addArticle = createAsyncThunk(
         article,
         getAuthHeader()
       );
-      dispatch(successGlobal('Post created!'));
+      dispatch(successGlobal('Post created !!'));
       return request.data;
     } catch (error) {
       dispatch(errorGlobal(error.response.data.message));
@@ -49,10 +48,11 @@ export const updateArticle = createAsyncThunk(
         values,
         getAuthHeader()
       );
-      dispatchEvent(successGlobal('Article updated!'));
+      dispatch(successGlobal('Article updated !!'));
       return true;
     } catch (error) {
       dispatch(errorGlobal(error.response.data.message));
+      throw error;
     }
   }
 );
@@ -84,20 +84,22 @@ export const changeStatusArticle = createAsyncThunk(
     try {
       const request = await axios.patch(
         `/api/articles/article/${_id}`,
-        { status: newStatus },
+        {
+          status: newStatus,
+        },
         getAuthHeader()
       );
+
       let article = request.data;
-
-      // previous state
+      /// previous state
       let state = getState().articles.adminArticles.docs;
-      // find the position
+      ///  find the position
       let position = state.findIndex((article) => article._id === _id);
-
-      // we cannot mutate 'let state', we create a copy
+      // we cannot mutate 'let state', we create copy
       const newState = [...state];
       newState[position] = article;
-      dispatch(successGlobal('Status changed!'));
+
+      dispatch(successGlobal('Status changed !!'));
       return newState;
     } catch (error) {
       dispatch(errorGlobal(error.response.data.message));
@@ -134,6 +136,19 @@ export const homeLoadMore = createAsyncThunk(
       const newState = [...prevState, ...articles.data];
 
       return { newState, sort };
+    } catch (error) {
+      dispatch(errorGlobal(error.response.data.message));
+      throw error;
+    }
+  }
+);
+
+export const getArticle = createAsyncThunk(
+  'articles/getArticle',
+  async (id, { dispatch }) => {
+    try {
+      const request = await axios.get(`/api/articles/users/article/${id}`);
+      return request.data;
     } catch (error) {
       dispatch(errorGlobal(error.response.data.message));
       throw error;

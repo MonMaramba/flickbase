@@ -18,6 +18,7 @@ import AdminArticles from './components/dashboard/articles';
 import AdminProfile from './components/dashboard/profile';
 import AddArticle from './components/dashboard/articles/edit_add/add';
 import EditArticle from './components/dashboard/articles/edit_add/edit';
+import Article from './components/articles/article';
 
 const Router = () => {
   const [loading, setLoading] = useState(true);
@@ -62,6 +63,7 @@ const Router = () => {
               </Route>
               <Route path='/auth' element={<Auth />} />
               <Route path='/' element={<Home />} />
+              <Route path='/articles/article/:id' element={<Article />} />
             </Routes>
           </MainLayout>
         </>
