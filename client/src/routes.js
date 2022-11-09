@@ -9,6 +9,7 @@ import MainLayout from './hoc/mainLayout';
 import Header from './components/navigation/header';
 import Home from './components/home';
 import Auth from './components/auth';
+import AccountVerify from './components/auth/verification';
 
 // ADMIN ROUTES
 import DashboardMain from './components/dashboard/mainDashboard';
@@ -61,6 +62,7 @@ const Router = () => {
                   element={<EditArticle />}
                 />
               </Route>
+              <Route path='/verification' element={<AccountVerify />} />
               <Route path='/auth' element={<Auth />} />
               <Route path='/' element={<Home />} />
               <Route path='/articles/article/:id' element={<Article />} />
