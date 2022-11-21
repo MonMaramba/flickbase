@@ -5,6 +5,8 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
+const multer = require('multer');
+
 const xss = require('xss-clean');
 const mongoSanitize = require('express-mongo-sanitize');
 
