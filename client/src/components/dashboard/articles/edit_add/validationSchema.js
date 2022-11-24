@@ -7,6 +7,7 @@ export const formValues = {
   score: '',
   director: '',
   actors: [],
+  imageLink: '',
   status: 'draft',
 };
 

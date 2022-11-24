@@ -37,7 +37,10 @@ const articleSchema = mongoose.Schema({
       message: 'You must add at least three',
     },
   },
-
+  imageLink: {
+    type: String,
+    required: true,
+  },
   status: {
     type: String,
     required: true,

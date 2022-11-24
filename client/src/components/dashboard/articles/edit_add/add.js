@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 // components
 import { AdminTitle, Loader } from '../../../../utils/tools';
-import { errorHelper, loader } from '../../../../utils/tools';
+import { errorHelper } from '../../../../utils/tools';
 import { validation, formValues } from './validationSchema';
 import WYSIWYG from '../../../../utils/forms/wysiwyg';
 
@@ -27,7 +27,6 @@ import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import InputLabel from '@mui/material/InputLabel';
 import AddIcon from '@mui/icons-material/Add';
-import { visuallyHidden } from '@mui/utils';
 
 const AddArticle = () => {
   const [editorBlur, setEditorBlur] = useState(false);
@@ -170,16 +169,16 @@ const AddArticle = () => {
           />
         </div>
 
-        {/* <div className='form-group'>
+        <div className='form-group'>
           <TextField
             style={{ width: '100%' }}
-            name='image'
+            name='imageLink'
             label='Enter an image link'
             variant='outlined'
-            {...formik.getFieldProps('image')}
-            {...errorHelper(formik, 'image')}
+            {...formik.getFieldProps('imageLink')}
+            {...errorHelper(formik, 'imageLink')}
           />
-        </div> */}
+        </div>
 
         <Divider className='mt-3 mb-3' />
 

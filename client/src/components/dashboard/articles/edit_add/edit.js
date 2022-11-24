@@ -5,12 +5,12 @@ import { useParams } from 'react-router-dom';
 
 // components
 import { AdminTitle, Loader } from '../../../../utils/tools';
-import { errorHelper, loader } from '../../../../utils/tools';
+import { errorHelper } from '../../../../utils/tools';
 import { validation, formValues } from './validationSchema';
 import WYSIWYG from '../../../../utils/forms/wysiwyg';
 
 // redux
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
   getAdminArticle,
   updateArticle,
@@ -30,7 +30,6 @@ import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import InputLabel from '@mui/material/InputLabel';
 import AddIcon from '@mui/icons-material/Add';
-import { visuallyHidden } from '@mui/utils';
 
 const EditArticle = () => {
   const [loading, setLoading] = useState(true);
@@ -39,7 +38,7 @@ const EditArticle = () => {
   const [editorBlur, setEditorBlur] = useState(false);
 
   //redux
-  const articles = useSelector((state) => state.articles);
+  // const articles = useSelector((state) => state.articles);
   const dispatch = useDispatch();
 
   const actorsValue = useRef('');
@@ -190,16 +189,16 @@ const EditArticle = () => {
             />
           </div>
 
-          {/* <div className='form-group'>
+          <div className='form-group'>
             <TextField
               style={{ width: '100%' }}
-              name='image'
+              name='imageLink'
               label='Enter an image link'
               variant='outlined'
-              {...formik.getFieldProps('image')}
-              {...errorHelper(formik, 'image')}
+              {...formik.getFieldProps('imageLink')}
+              {...errorHelper(formik, 'imageLink')}
             />
-          </div> */}
+          </div>
 
           <Divider className='mt-3 mb-3' />
 
