@@ -190,6 +190,17 @@ const EditArticle = () => {
             />
           </div>
 
+          {/* <div className='form-group'>
+            <TextField
+              style={{ width: '100%' }}
+              name='image'
+              label='Enter an image link'
+              variant='outlined'
+              {...formik.getFieldProps('image')}
+              {...errorHelper(formik, 'image')}
+            />
+          </div> */}
+
           <Divider className='mt-3 mb-3' />
 
           <FormControl fullWidth>

@@ -2,7 +2,23 @@ const { Article } = require('../models/article');
 const httpStatus = require('http-status');
 const { ApiError } = require('../middlewares/apiError');
 
+const multer = require('multer');
+const fs = require('fs');
+
 const addArticle = async (body) => {
+  // multer storage engine
+
+  const storage = multer.diskStorage({
+    destination: (req, res, cb) => {
+      cb(null, 'uploads');
+    },
+    filename: (req, file, cb) => {
+      cb(null, file.originalname);
+    },
+  });
+
+  const upload = multer({ storage: storage });
+
   try {
     const article = new Article({
       ...body,
