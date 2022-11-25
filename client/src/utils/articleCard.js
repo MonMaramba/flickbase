@@ -12,11 +12,13 @@ import {
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const ArticleCard = ({ article }) => {
+  const imageLink = article.imageLink;
+  const styling = { height: 0, paddingTop: '56.25%', objectFit: 'contain' };
   return (
-    <Card>
+    <Card raised sx={{}}>
       <CardMedia
-        style={{ height: 0, paddingTop: '56.25%' }}
-        image={`https://picsum.photos/200?${article._id}`}
+        sx={{ height: 0, paddingTop: '100%', objectFit: 'contain' }}
+        image={imageLink}
         title='some title'
       />
       <CardContent>
